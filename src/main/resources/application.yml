@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: "commute-system"
+  datasource:
+    url: "jdbc:mysql://localhost:3306/company"
+    username: "root"
+    password: "AllCloud321@"
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
