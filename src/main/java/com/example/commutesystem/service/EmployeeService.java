@@ -2,9 +2,12 @@ package com.example.commutesystem.service;
 
 import com.example.commutesystem.domain.employee.Employee;
 import com.example.commutesystem.dto.employee.request.EmployeeCreateRequest;
+import com.example.commutesystem.dto.employee.response.EmployeeResponse;
 import com.example.commutesystem.repository.employee.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -20,6 +23,13 @@ public class EmployeeService {
                 request.getWorkStartDate(),
                 request.getBirthday()
         ));
+    }
+
+
+    public List<EmployeeResponse> getEmployees() {
+        return employeeRepository.findAllwithTeam().stream()
+                .map(EmployeeResponse::new)
+                .toList();
     }
 
 }
