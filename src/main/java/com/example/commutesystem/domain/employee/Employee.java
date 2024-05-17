@@ -1,5 +1,6 @@
 package com.example.commutesystem.domain.employee;
 
+import com.example.commutesystem.domain.Team;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -22,7 +23,11 @@ public class Employee {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    Role role;
+    private Role role;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_id")
+    private Team team;
 
     private LocalDate workStartDate;
     private LocalDate birthday;
@@ -48,6 +53,19 @@ public class Employee {
 
         this.workStartDate = workStartDate;
         this.birthday = birthday;
+    }
+
+
+    /**
+     * 연관관계 편의 메서드
+     */
+    public void updateTeam(Team team) {
+        if (this.team != null) {
+            this.team.getMembers().remove(this);
+        }
+
+        this.team = team;
+        team.getMembers().add(this);
     }
 
 }
